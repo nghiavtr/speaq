@@ -1,4 +1,4 @@
 speaq
 =====
 
-Moved from https://code.google.com/p/speaq/
+Just link to https://code.google.com/p/speaq/
