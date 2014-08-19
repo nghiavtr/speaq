@@ -1,7 +1,7 @@
 speaq
 =====
 
-At this moment, just link to https://code.google.com/p/speaq/ 
+Link to https://code.google.com/p/speaq/ 
 
 
 We introduce a novel suite of informatics tools for the quantitative analysis of NMR metabolomic profile data. The core of the processing cascade is a novel peak alignment algorithm, called hierarchical Cluster-based Peak Alignment (CluPA).
