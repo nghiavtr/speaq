@@ -1,0 +1,14 @@
+Package: speaq
+Type: Package
+Title: An R-package for NMR spectrum alignment and quantitation
+Version: 1.2.0
+Date: 2015-05-01
+Author: Trung Nghia VU, Kris Laukens and Dirk Valkenborg
+Maintainer: Trung Nghia VU <nghiavtr@gmail.com>
+Description: Integrated NMR spectrum alignment and quantitation based on Hierarchial Clustering Based Peak Alignment (CluPA) 
+Depends: R (>= 3.0.0), MassSpecWavelet
+License: Apache License 2.0
+biocViews: NuclearMagneticResonance, Bioinformatics, Spectrum,
+        Alignment, Quantitation,Proteomics, Clustering,
+        MassSpectrometry, NMR
+Packaged: 2015-01-04 20:26:17 UTC; trungvu

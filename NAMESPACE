@@ -1,0 +1,6 @@
+importFrom(graphics, abline, contour, hist, legend, lines, par, plot,
+           points, segments, text, title)
+importFrom(stats, fft)
+importFrom(MassSpecWavelet, peakDetectionCWT)
+
+export(detectSpecPeaks,dohCluster,dohClusterCustommedSegments,doShift,drawSpec,findRef,returnLocalMaxima,export2file,findSegPeakList,findShiftStepFFT,hClustAlign,BWR,drawBW,createNullSampling)

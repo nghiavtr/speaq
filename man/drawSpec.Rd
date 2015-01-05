@@ -1,0 +1,82 @@
+\name{drawSpec}
+\alias{drawSpec}
+ 
+\title{
+Spectral plot
+}
+\description{
+This function allows to draw a segment or the whole spectra with limited high/low bounds of intensity.
+}
+\usage{
+drawSpec(X,
+         startP = -1,
+      	 endP = -1,
+      	 groupLabel = NULL,
+      	 useLog = -1,
+      	 highBound = -1,
+      	 lowBound = -1,
+      	 xlab = NULL,
+      	 ylab = NULL,
+      	 main = NULL,
+      	 nAxisPos = 4,
+      	 offside = 0)
+}
+ 
+\arguments{
+  \item{X}{
+The spectral dataset in matrix format in which each row contains a single sample.
+}
+  \item{startP}{
+The starting point of the segment. If it is -1, the starting point is from begining of the spectra.
+}
+  \item{endP}{
+The ending point of the segment. If it is -1, the ending point is the last point of the spectra.
+}
+  \item{groupLabel}{
+The default value is NULL, it means that a single spectrum has a distinct color. Otherwise, the spectra is colored by their label.
+}
+  \item{useLog}{
+The default value is -1, that means do not use a logarit transformation. If users want to transform the intensities to logarit values before ploting, set it to 1.
+}
+  \item{highBound}{
+Default value is -1, that means the plot covers also the highest intesity peaks in the figure.
+If the users want to limit the upper height of the figure, set this parameter by the limited value.
+}
+  \item{lowBound}{
+Default value is -1, that means the plot covers also the lowest intesity peaks in the figure.
+If the users want to limit the under height of the figure, set this parameter by the limited value.
+}
+  \item{xlab}{
+The default value is NULL, if so, "index" is displayed at the horizontal axis.
+}
+  \item{ylab}{
+The default value is NULL, if so, "intensity" is displayed at the vertical axis.
+}
+  \item{main}{
+The default value is NULL, if so, the title shows the values of startP and endP
+}
+  \item{nAxisPos}{
+The number of ticks that you want to display in horizontal axis.
+}
+  \item{offside}{
+The offside of values in x-axis for display.
+}
+}
+\details{
+This function allows to draw a segment or the whole spectra with limited high/low bounds of intensity. 
+}
+
+\author{
+Trung Nghia VU 
+}
+\seealso{
+ \code{\link{drawBW}}
+}
+\examples{ cat("\n Please see more examples in the vignettes file.")
+
+}
+ 
+ 
+\keyword{ plot }
+\keyword{ segment } 
+\keyword{ spectra } 
