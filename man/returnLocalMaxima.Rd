@@ -26,10 +26,17 @@ Find and return local maximum of a single spectrum.
 
 }
 \author{
-Trung Nghia VU 
+Trung Nghia Vu 
 }
 
-\examples{ cat("\n Please see more examples in the vignettes file.")
+\examples{ 
+
+res=makeSimulatedData();
+X=res$data;
+groupLabel=res$label;
+
+
+returnLocalMaxima(X[2,])	
 
 }
  

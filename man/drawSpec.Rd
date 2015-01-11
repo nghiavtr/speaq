@@ -10,16 +10,16 @@ This function allows to draw a segment or the whole spectra with limited high/lo
 \usage{
 drawSpec(X,
          startP = -1,
-      	 endP = -1,
-      	 groupLabel = NULL,
-      	 useLog = -1,
-      	 highBound = -1,
-      	 lowBound = -1,
-      	 xlab = NULL,
-      	 ylab = NULL,
-      	 main = NULL,
-      	 nAxisPos = 4,
-      	 offside = 0)
+           endP = -1,
+           groupLabel = NULL,
+           useLog = -1,
+           highBound = -1,
+           lowBound = -1,
+           xlab = NULL,
+           ylab = NULL,
+           main = NULL,
+           nAxisPos = 4,
+           offside = 0)
 }
  
 \arguments{
@@ -65,15 +65,22 @@ The offside of values in x-axis for display.
 \details{
 This function allows to draw a segment or the whole spectra with limited high/low bounds of intensity. 
 }
+\value{
+    Return a plot of the spectra.
+}
 
 \author{
-Trung Nghia VU 
+Trung Nghia Vu 
 }
 \seealso{
  \code{\link{drawBW}}
 }
-\examples{ cat("\n Please see more examples in the vignettes file.")
+\examples{ 
+res=makeSimulatedData();
+X=res$data;
+groupLabel=res$label;
 
+drawSpec(X)
 }
  
  

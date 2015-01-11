@@ -15,7 +15,7 @@ dohClusterCustommedSegments(X,
                             refInd,
                             maxShift,
                             acceptLostPeak = TRUE,
-                            infoFilename,
+                            segmentInfoMat,
                             minSegSize = 128,
                             verbose=TRUE)
 }
@@ -36,8 +36,8 @@ The maximum number of points for a shift step.
   \item{acceptLostPeak}{
 This is an option for users, TRUE is the default value. If the users believe that all the peaks in the peak list are true positive, change it to FALSE.
 }
-  \item{infoFilename}{
-The name of the file containing the additional information from the users in the CSV format with a header. 
+  \item{segmentInfoMat}{
+The matrix containing the additional information for segments from the users. This parameter must be a matrix.
 
 }
   \item{minSegSize}{
@@ -48,17 +48,19 @@ A boolean value to allow print out process information.
 }
 }
 \details{
-Each line of the infoFilename includes 5 numbers separated by commas, for instance:
+Each row of the segmentInfoMat matrix includes 5 values. For example, it could be imported from a CSV file consisting of following content:
 
 #
 
 begin,end,forAlign,ref,maxShift
 
-3600,4000,0,0,0
+100,200,0,0,0
 
-5600,6200,1,0,50
+450,680,1,0,50
 
 #
+
+Each column could be explained as the following:
 
 - begin: the starting point of the segment.
 
@@ -70,7 +72,7 @@ begin,end,forAlign,ref,maxShift
 
 - maxShift: the maximum number of points of a shift to left/right.
 
-It is worth to note that only segments with forAlign=1 will be taken into account for spectral alignment. 
+It is worth to note that only segments with forAlign=1 (column 3) will be taken into account for spectral alignment. 
 }
 \value{
  
@@ -78,7 +80,7 @@ The aligned spectral segments.
 }
 
 \author{
-Trung Nghia VU 
+Trung Nghia Vu 
 }
 
 \seealso{
@@ -86,6 +88,40 @@ Trung Nghia VU
 }
 \examples{ cat("\n Please see more examples in the vignettes file.")
 
+res=makeSimulatedData();
+X=res$data;
+groupLabel=res$label;
+
+
+
+peakList <- detectSpecPeaks(X,
+  nDivRange = c(128),                
+  scales = seq(1, 16, 2),
+  baselineThresh = 50000,
+  SNR.Th = -1,
+    verbose=FALSE
+);
+
+
+resFindRef<- findRef(peakList);
+refInd <- resFindRef$refInd;
+
+
+segmentInfoMat=matrix(data=c(100,200,0,0,0,
+                      50,680,1,0,50),nrow=2,ncol=5,byrow=TRUE
+                      )
+colnames(segmentInfoMat)=c("begin","end","forAlign","ref","maxShift")
+segmentInfoMat
+
+maxShift = 50;
+Yc <- dohClusterCustommedSegments(X,
+                                 peakList = peakList,
+                                 refInd = refInd,
+                                 maxShift  = maxShift,
+                                 acceptLostPeak = TRUE,
+                                 segmentInfoMat = segmentInfoMat,
+                                 minSegSize = 128,
+                                 verbose=FALSE)
 }
  
  

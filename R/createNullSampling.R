@@ -1,5 +1,5 @@
-createNullSampling <-function(X, groupLabel, N=1000, 
-      filename=NULL, verbose=TRUE){
+createNullSampling <-function(X, groupLabel, N=100, 
+      verbose=TRUE){
 
   groupNum=length(levels(groupLabel));
   samplePool=X;  
@@ -21,12 +21,9 @@ createNullSampling <-function(X, groupLabel, N=1000,
   H0=matrix(data=0,nrow=N,ncol=ncol(X));
   
   for(i in 1 : N){
-    if (verbose) cat(i,"\n");
+    if (verbose) cat("\n Permutation th",i);
     index=sample(L);    
     H0[i,]=BWR(samplePool[index,],groupLabel);
   }
-  
-  if (!is.null(filename))
-     write.csv(H0,filename,row.names=FALSE,col.names=FALSE);
   return(H0);
 }

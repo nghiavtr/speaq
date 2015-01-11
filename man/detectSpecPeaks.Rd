@@ -9,7 +9,7 @@ Divide the whole spectra into smaller segments and detect peaks by using MassSpe
 }
 \usage{
 detectSpecPeaks(X, nDivRange = 128, scales = seq(1, 16, 2),
-		baselineThresh = 50000, SNR.Th = -1, verbose=TRUE)
+        baselineThresh = 50000, SNR.Th = -1, verbose=TRUE)
 }
  
 \arguments{
@@ -40,10 +40,23 @@ Divide the whole spectra into smaller segments and detect peaks by using MassSpe
 The peak lists of the spectra
 }
 \author{
-Trung Nghia VU 
+Trung Nghia Vu 
 }
 
-\examples{ cat("\n Please see more examples in the vignettes file.")
+\examples{ 
+res=makeSimulatedData();
+X=res$data;
+groupLabel=res$label;
+
+
+
+peakList <- detectSpecPeaks(X,
+  nDivRange = c(128),                
+  scales = seq(1, 16, 2),
+  baselineThresh = 50000,
+  SNR.Th = -1,
+    verbose=FALSE
+);    
 
 }
  

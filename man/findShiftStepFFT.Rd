@@ -9,8 +9,8 @@ This function uses Fast Fourier Transform cross-correlation to find out the shif
 }
 \usage{
 findShiftStepFFT(refSpec,
-		tarSpec,
-		maxShift = 0)
+        tarSpec,
+        maxShift = 0)
 }
  
 \arguments{
@@ -32,13 +32,22 @@ The maximum number of points for a shift step. If this value is zero, the algori
 \item{stepAdj }{ The shift step found by the algorithm}
 }
 \author{
-Trung Nghia VU 
+Trung Nghia Vu 
 }
 
 \seealso{
  \code{\link{hClustAlign}}
 }
-\examples{ cat("\n Please see more examples in the vignettes file.")
+\examples{ 
+res=makeSimulatedData();
+X=res$data;
+groupLabel=res$label;
+
+
+maxShift=50;
+refSpec=X[1,];
+tarSpec=X[2,];
+adj=findShiftStepFFT(refSpec, tarSpec,maxShift=maxShift);
 
 }
  

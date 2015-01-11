@@ -9,7 +9,7 @@ Move a spectral segment of a sample shiftStep points to right or left
 }
 \usage{
 doShift(specSeg,
-	shiftStep)
+    shiftStep)
 }
  
 \arguments{
@@ -28,13 +28,24 @@ The new segment after shifting.
 }
 
 \author{
-Trung Nghia VU 
+Trung Nghia Vu 
 }
  
 \seealso{
-\code{\link{hClustAlign}} 
+\code{\link{hClustAlign},\link{findShiftStepFFT} } 
 }
-\examples{ cat("\n Please see more examples in the vignettes file.")
+\examples{ 
+
+res=makeSimulatedData();
+X=res$data;
+groupLabel=res$label;
+
+
+maxShift=50;
+refSpec=X[1,];
+tarSpec=X[2,];
+adj=findShiftStepFFT(refSpec, tarSpec,maxShift=maxShift);
+newTarSpec=doShift(tarSpec,adj$stepAdj);
 
 }
  

@@ -4,7 +4,7 @@ dohCluster <-function(X, peakList, refInd=0,
   peakListNew=peakList;
   
   if (verbose) startTime=proc.time();  
-  refSpec=Y[refInd,];		
+  refSpec=Y[refInd,];        
   for (tarInd in 1: nrow(X))
   if (tarInd!=refInd)
   {

@@ -9,14 +9,14 @@ This function implements the idea of the CluPA algorithm to align the target spe
 }
 \usage{
 hClustAlign(refSpec,
-	    tarSpec,
-	    peakList,
-	    peakLabel,
-	    startP,
-	    endP,
-	    distanceMethod = "average",
-	    maxShift = 0,
-	    acceptLostPeak = FALSE)
+        tarSpec,
+        peakList,
+        peakLabel,
+        startP,
+        endP,
+        distanceMethod = "average",
+        maxShift = 0,
+        acceptLostPeak = FALSE)
 }
  
 \arguments{
@@ -67,8 +67,35 @@ This is an option for users, TRUE is the default value. If the users believe tha
 \seealso{
  \code{\link{dohCluster}}
 }
-\examples{ cat("\n Please see more examples in the vignettes file.")
+\examples{
+res=makeSimulatedData();
+X=res$data;
+groupLabel=res$label;
 
+
+peakList <- detectSpecPeaks(X,
+  nDivRange = c(128),                
+  scales = seq(1, 16, 2),
+  baselineThresh = 50000,
+  SNR.Th = -1,
+    verbose=FALSE
+);
+
+
+resFindRef<- findRef(peakList);
+refInd <- resFindRef$refInd;
+
+tarInd=1;
+refSpec=X[refInd,];
+tarSpec=X[tarInd,];
+
+mergedPeakList=c(peakList[[refInd]],peakList[[tarInd]]);
+mergedPeakLabel=double(length(mergedPeakList));
+for (i in 1:length(peakList[[refInd]]) ) mergedPeakLabel[i]=1;
+startP=1;
+endP=length(tarSpec);
+res=hClustAlign(refSpec,tarSpec,mergedPeakList,mergedPeakLabel,startP,endP,
+        maxShift=50,acceptLostPeak=TRUE)
 }
  
  

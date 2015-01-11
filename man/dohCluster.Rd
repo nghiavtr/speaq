@@ -44,7 +44,7 @@ Use CluPA for alignment for multiple spectra.
 The aligned spectra.
 }
 \author{
-Trung Nghia VU 
+Trung Nghia Vu 
 }
 
  
@@ -52,8 +52,32 @@ Trung Nghia VU
 \seealso{
 \code{\link{dohClusterCustommedSegments}}   
 }
-\examples{ cat("\n Please see more examples in the vignettes file.")
+\examples{ 
+res=makeSimulatedData();
+X=res$data;
+groupLabel=res$label;
 
+
+
+peakList <- detectSpecPeaks(X,
+  nDivRange = c(128),                
+  scales = seq(1, 16, 2),
+  baselineThresh = 50000,
+  SNR.Th = -1,
+    verbose=FALSE
+);
+
+
+resFindRef<- findRef(peakList);
+refInd <- resFindRef$refInd;
+
+
+maxShift = 50;
+Y <- dohCluster(X,
+                peakList = peakList,
+                refInd = refInd,
+                maxShift  = maxShift,
+                acceptLostPeak = TRUE, verbose=FALSE);
 }
  
  

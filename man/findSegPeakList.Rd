@@ -28,17 +28,34 @@ The ending point of the segment.
 This function is to find out which peaks belonging to a segment which ranges from startP to endP
 }
 \value{
-The list of peaks in the segment.
+The list of indices of the peaks in the segment.
 }
 
 \author{
-Trung Nghia VU 
+Trung Nghia Vu 
 }
 
 \seealso{
 \code{\link{dohClusterCustommedSegments}}
 }
-\examples{ cat("\n Please see more examples in the vignettes file.")
+\examples{
+
+res=makeSimulatedData();
+X=res$data;
+groupLabel=res$label;
+
+
+peakList <- detectSpecPeaks(X,
+  nDivRange = c(128),                
+  scales = seq(1, 16, 2),
+  baselineThresh = 50000,
+  SNR.Th = -1,
+    verbose=FALSE
+);
+
+cat("\n ", peakList[[1]])
+segmentpeakList= findSegPeakList(peakList[[1]],400,600);
+cat("\n ", segmentpeakList)
 
 }
  

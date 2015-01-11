@@ -8,7 +8,7 @@ Building a null hypothesis data
 Create a null sampling data (N times) and write them to a file
 }
 \usage{
-createNullSampling(X, groupLabel, N = 1000, filename = NULL, verbose=TRUE)
+createNullSampling(X, groupLabel, N = 100, verbose=TRUE)
 }
  
 \arguments{
@@ -21,9 +21,6 @@ Group label of samples in the dataset.
   \item{N}{
 The number of iteration for creating null sample distribution
 }
-  \item{filename}{
-The name of output file.
-}
   \item{verbose}{
 A boolean value to allow print out process information.
 }
@@ -31,10 +28,45 @@ A boolean value to allow print out process information.
 \details{
 Create a null sampling data (N times) and write them to a file 
 }
-\author{
-Trung Nghia VU 
+\value{
+    A matrix with N rows containing the null distribution.
 }
-\examples{ cat("\n Please see more examples in the vignettes file.")
+\author{
+Trung Nghia Vu 
+}
+\examples{ 
+
+res=makeSimulatedData();
+X=res$data;
+groupLabel=res$label;
+
+
+
+peakList <- detectSpecPeaks(X,
+  nDivRange = c(128),                
+  scales = seq(1, 16, 2),
+  baselineThresh = 50000,
+  SNR.Th = -1,
+    verbose=FALSE
+);
+
+
+resFindRef<- findRef(peakList);
+refInd <- resFindRef$refInd;
+
+
+maxShift = 50;
+Y <- dohCluster(X,
+                peakList = peakList,
+                refInd = refInd,
+                maxShift  = maxShift,
+                acceptLostPeak = TRUE, verbose=FALSE);
+
+
+# find the BW-statistic
+BW = BWR(Y, groupLabel);
+
+H0 = createNullSampling(Y, groupLabel, N = 100,verbose=FALSE)
 
 }
  

@@ -1,5 +1,5 @@
 hClustAlign <-function(refSpec, tarSpec, peakList, peakLabel, startP, endP,
-	       distanceMethod="average", maxShift=0, acceptLostPeak=FALSE){
+           distanceMethod="average", maxShift=0, acceptLostPeak=FALSE){
 minpeakList=min(peakList)[1];
 maxpeakList=max(peakList)[1];
 startCheckP=startP+which.min(tarSpec[startP:(minpeakList-1)])[1]-1;
@@ -25,13 +25,13 @@ if (adj$stepAdj!=0){
       
       peakListTarget=which(peakLabel==0);
       peakList[peakListTarget]=peakList[peakListTarget]+adj$stepAdj;
-	  
-  	  lostPeaks=which(peakList<=0);
-  	  if (length(lostPeaks) >0){
+      
+        lostPeaks=which(peakList<=0);
+        if (length(lostPeaks) >0){
 
-  		peakList=peakList[-lostPeaks];
-  		peakLabel=peakLabel[-lostPeaks];
-	  }
+          peakList=peakList[-lostPeaks];
+          peakLabel=peakLabel[-lostPeaks];
+      }
     }
 }
 
@@ -62,7 +62,7 @@ if (maxsubData1<minsubData2){
           acceptLostPeak=acceptLostPeak);
         tarSpec=res$tarSpec;
         peakList[labelID1]=res$peakList;
-    }		
+    }        
     if (length(unique(subLabel2))>1){
         res=hClustAlign(refSpec,tarSpec,subData2,subLabel2,startP2,endP,
           distanceMethod=distanceMethod,maxShift=maxShift,
@@ -70,7 +70,7 @@ if (maxsubData1<minsubData2){
         tarSpec=res$tarSpec;
         peakList[labelID2]=res$peakList;
     }
-}else{		
+}else{        
     maxsubData2=max(subData2)[1];
     minsubData1=min(subData1)[1];
     endP2=maxsubData2+which.min(tarSpec[(maxsubData2+1) :(minsubData1-1)])[1];
@@ -82,14 +82,14 @@ if (maxsubData1<minsubData2){
           acceptLostPeak=acceptLostPeak);
         tarSpec=res$tarSpec;
         peakList[labelID2]=res$peakList;
-    }	
+    }    
     if (length(unique(subLabel1))>1){
         res=hClustAlign(refSpec,tarSpec,subData1,subLabel1,startP1,endP,
           distanceMethod=distanceMethod,maxShift=maxShift,
           acceptLostPeak=acceptLostPeak);
         tarSpec=res$tarSpec;
         peakList[labelID1]=res$peakList;
-    }		
-}	
+    }        
+}    
 return (list(tarSpec=tarSpec,peakList=peakList));
 }

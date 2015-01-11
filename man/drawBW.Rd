@@ -57,15 +57,59 @@ The offside of values in x-axis for display.
 \details{
 This function is used to plot BW and percentile ratios 
 }
-
+\value{
+    Return a plot containing both the BW and the spectra.
+}
 \author{
-Trung Nghia VU 
+Trung Nghia Vu 
 }
 
 \seealso{
 \code{\link{drawSpec}} 
 }
-\examples{ cat("\n Please see more examples in the vignettes file.")
+\examples{ 
+res=makeSimulatedData();
+X=res$data;
+groupLabel=res$label;
+
+
+peakList <- detectSpecPeaks(X,
+  nDivRange = c(128),                
+  scales = seq(1, 16, 2),
+  baselineThresh = 50000,
+  SNR.Th = -1,
+    verbose=FALSE
+);
+
+
+resFindRef<- findRef(peakList);
+refInd <- resFindRef$refInd;
+
+
+maxShift = 50;
+Y <- dohCluster(X,
+                peakList = peakList,
+                refInd = refInd,
+                maxShift  = maxShift,
+                acceptLostPeak = TRUE, verbose=FALSE);
+
+# find the BW-statistic
+BW = BWR(Y, groupLabel);
+
+N = 100;
+alpha = 0.05;
+
+# create sampled H0 and export to file
+H0 = createNullSampling(Y, groupLabel, N = N,verbose=FALSE)
+
+#compute percentile of alpha
+perc = double(ncol(Y));
+alpha_corr = alpha/sum(returnLocalMaxima(Y[2,])$pkMax>50000);
+for (i in 1 : length(perc)){    
+    perc[i] = quantile(H0[,i],1-alpha_corr, type = 3);
+}
+
+drawBW(BW, perc,Y, groupLabel = groupLabel)
 
 }
  

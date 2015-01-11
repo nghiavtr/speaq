@@ -1,13 +1,15 @@
 ### R code from vignette source 'speaq.Rnw'
-### Encoding: ASCII
+### Encoding: UTF-8
 
 ###################################################
 ### code chunk number 1: Read_data_input
 ###################################################
-# load('wine.RData')
 library(speaq)
-X  <- read.csv("wine.csv", header = FALSE);    
-X <- as.matrix(X);
+
+#Generate a simulated NMR data set for the experiment
+res=makeSimulatedData();
+X=res$data;
+groupLabel=res$label;
 
 
 ###################################################
@@ -15,39 +17,35 @@ X <- as.matrix(X);
 ###################################################
 cat("\n detect peaks....");
 startTime <- proc.time();
-peakListTmp <- detectSpecPeaks(X,
-	nDivRange = c(128),                
-	scales = seq(1, 16, 2),
-	baselineThresh = 50000,
-	SNR.Th = -1,
+peakList <- detectSpecPeaks(X,
+    nDivRange = c(128),                
+    scales = seq(1, 16, 2),
+    baselineThresh = 50000,
+    SNR.Th = -1,
     verbose=FALSE
 );
 
-peakList <- peakListTmp; #just a backup for next usage if necessary
 endTime <- proc.time();
-cat("Peak detection time: ", (endTime[3] - startTime[3])/60, " minutes");
+cat("Peak detection time:",(endTime[3]-startTime[3])/60," minutes");
 
 
 ###################################################
 ### code chunk number 3: Reference_finding
 ###################################################
-refInd = 0;
-startTime <- proc.time();
-if (refInd == 0){
-    cat("\n Find the spectrum reference...")
-    resFindRef<- findRef(peakList);
-    refInd <- resFindRef$refInd;
-    cat("\n Order of spectrum for reference  \n");
-    for (i in 1:length(resFindRef$orderSpec))
-    {
-        cat(paste(i, ":",resFindRef$orderSpec[i],sep=""), " ");
-        if (i %% 10 == 0) cat("\n")
-    }
-    
+
+cat("\n Find the spectrum reference...")
+resFindRef<- findRef(peakList);
+refInd <- resFindRef$refInd;
+
+cat("\n Order of spectrum for reference  \n");
+for (i in 1:length(resFindRef$orderSpec))
+{
+    cat(paste(i, ":",resFindRef$orderSpec[i],sep=""), " ");
+    if (i %% 10 == 0) cat("\n")
 }
-endTime <- proc.time();
-cat("\n Finding reference spectrum time: ", (endTime[3] - startTime[3])/60, " minutes");
+    
 cat("\n The reference is: ", refInd);
+
 
 
 ###################################################
@@ -67,13 +65,18 @@ Y <- dohCluster(X,
 ###################################################
 ### code chunk number 5: Spectral_segment_alignment
 ###################################################
+segmentInfoMat=matrix(data=c(100,200,0,0,0,
+                      50,680,1,0,50),nrow=2,ncol=5,byrow=TRUE
+                      )
+colnames(segmentInfoMat)=c("begin","end","forAlign","ref","maxShift")
+segmentInfoMat
 
 Yc <- dohClusterCustommedSegments(X,
                                  peakList = peakList,
                                  refInd = refInd,
                                  maxShift  = maxShift,
                                  acceptLostPeak = TRUE,
-                                 infoFilename = "Wineinfo.csv",
+                                 segmentInfoMat = segmentInfoMat,
                                  minSegSize = 128,
                                  verbose=FALSE)
                                  
@@ -82,20 +85,17 @@ Yc <- dohClusterCustommedSegments(X,
 ###################################################
 ### code chunk number 6: Spectral_plots
 ###################################################
-drawSpec(Y,
-        startP=7000,
-        endP=8000
-        );
+drawSpec(Y);
 
 
 ###################################################
 ### code chunk number 7: spectral_plots_limited_height
 ###################################################
 drawSpec(Y,
-        startP=7000,
-        endP=8000,
-        highBound = 5e+6,
-        lowBound = -1000);
+        startP=450,
+        endP=680,
+        highBound = 5e+5,
+        lowBound = -100);
 
 
 ###################################################
@@ -103,27 +103,16 @@ drawSpec(Y,
 ###################################################
 N = 100;
 alpha = 0.05;
-wineLabel <- c("white","red","red","white","red","white","red","rose","red","red","red","white","red","white","red","red","white","rose","white","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red","red");
-wineLabel <- as.factor(wineLabel)
 
-U1 = Y[which(wineLabel=="white"),]
-U2 = Y[which(wineLabel=="red"),]
-U = rbind(U1, U2)
-Ulabel <- c("while","while","while","while","while","while","while",
-             "red","red","red","red","red","red","red","red","red","red",
-             "red","red","red","red","red","red","red","red","red","red",
-             "red","red","red","red","red","red","red","red","red","red",
-             "red");
-Ulabel <- as.factor(Ulabel);
 # find the BW-statistic
-BW = BWR(U, Ulabel);
+BW = BWR(Y, groupLabel);
 
 # create sampled H0 and export to file
-H0 = createNullSampling(U, Ulabel, N = N,verbose=FALSE)
+H0 = createNullSampling(Y, groupLabel, N = N,verbose=FALSE)
 
 #compute percentile of alpha
-perc = double(ncol(U));
-alpha_corr = alpha/sum(returnLocalMaxima(U[2,])$pkMax>50000);
+perc = double(ncol(Y));
+alpha_corr = alpha/sum(returnLocalMaxima(Y[2,])$pkMax>50000);
 for (i in 1 : length(perc)){    
     perc[i] = quantile(H0[,i],1-alpha_corr, type = 3);
 }
@@ -132,18 +121,12 @@ for (i in 1 : length(perc)){
 ###################################################
 ### code chunk number 9: drawBW_1
 ###################################################
-drawBW(BW, perc,U,startP = 7580, endP = 7690, groupLabel = Ulabel) #b
+drawBW(BW, perc,Y, groupLabel = groupLabel)
 
 
 ###################################################
 ### code chunk number 10: drawBW_2
 ###################################################
-drawBW(BW, perc,U,startP = 4180, endP = 4215, groupLabel = Ulabel) #c
-
-
-###################################################
-### code chunk number 11: drawBW_3
-###################################################
-drawBW(BW, perc,U,startP = 6200, endP = 6235, groupLabel = Ulabel) #d
+drawBW(BW, perc, Y ,startP=450, endP=680, groupLabel = groupLabel)
 
 
