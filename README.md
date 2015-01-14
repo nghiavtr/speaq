@@ -1,7 +1,7 @@
 speaq
 =====
 
-Already available on CRAN now!
+#Already available on CRAN now!
 
 Older versions at https://code.google.com/p/speaq/ 
 
