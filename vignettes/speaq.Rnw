@@ -1,5 +1,9 @@
+\documentclass[10pt]{article}
 
-\documentclass{article}
+%\VignetteIndexEntry{Introduction to speaq}
+%\VignetteDepends{MassSpecWavelet}
+%\VignetteKeywords{NMR, Spectral Alignment, Metabolomics, Nuclear Magnetic Resonance,Cheminformatics}
+%\VignettePackage{speaq}
 
 \usepackage{natbib}
 \usepackage{graphics}
