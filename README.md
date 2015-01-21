@@ -6,7 +6,7 @@ Older versions at https://code.google.com/p/speaq/
 
 # How to install "speaq"
 ### From CRAN using R
-chooseCRANmirror() # select a CRAN mirror: 0-cloud
+chooseCRANmirror() # select a CRAN mirror, for example: 0-cloud
 
 install.packages("speaq")   
 
