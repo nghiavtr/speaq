@@ -8,19 +8,14 @@ Older versions at https://code.google.com/p/speaq/
 ### From CRAN using R
 ```R
 chooseCRANmirror() # select a CRAN mirror, for example: 0-cloud
-
 install.packages("speaq")   
-
 library("speaq")
 ```
 ### From Github using R:
 ```R
 install.packages("devtools")
-
 library("devtools")
-
 install_github("speaq","nghiavtr")
-
 library("speaq")
 ```
 ### View vignette for a practical use
