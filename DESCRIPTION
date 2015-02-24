@@ -1,6 +1,6 @@
 Package: speaq
 Type: Package
-Title: Tools for Nuclear Magnetic Resonance (NMR) spectrum alignment and quantitative analysis
+Title: Tools for Nuclear Magnetic Resonance Spectrum Alignment and Quantitative Analysis
 Version: 1.2.1
 Date: 2015-24-02
 Author: Trung Nghia Vu, Kris Laukens and Dirk Valkenborg

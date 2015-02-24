@@ -3,3 +3,4 @@
 # Changes in Version: 1.2.1:
 - Replaced R version depends to R (>= 3.1.0) in order to remove the error of using anyNA().
 - Removed the period mark in the end of the package title.
+- Converted the title field to title case
