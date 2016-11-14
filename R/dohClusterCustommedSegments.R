@@ -2,7 +2,7 @@ dohClusterCustommedSegments <-function(X, peakList, refInd, maxShift,
      acceptLostPeak=TRUE, segmentInfoMat, minSegSize=128,verbose=TRUE){
   if (!is.matrix(segmentInfoMat)) {
     cat("ERROR! segmentInfoMat must be in a matrix format.")
-    return
+    return(NULL)
   }
 
   if (segmentInfoMat[1,1]>minSegSize) 
@@ -29,7 +29,7 @@ dohClusterCustommedSegments <-function(X, peakList, refInd, maxShift,
   if (sum(mysegments[,3]!=0)==0){
     cat("\n No segments are set for alignment! Please set 
         at least 1 values in columnn 3 in segmentInfoMat matrix be 1 ")
-    return;
+    return(NULL)
   }
 
   Y=X;

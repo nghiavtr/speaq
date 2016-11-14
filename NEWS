@@ -1,3 +1,6 @@
+### 15/11/2016
+# Changes in Version: 1.2.2:
+- Fix the issue of "if (condition) return;" might happen in function dohClusterCustommedSegments(). I acknowledge Duncan Murdoch <murdoch.duncan@gmail.com> for the alert.
 
 ### 24/02/2015
 # Changes in Version: 1.2.1:
