@@ -1,5 +1,5 @@
-dohClusterCustommedSegments <-function(X, peakList, refInd, maxShift,
-     acceptLostPeak=TRUE, segmentInfoMat, minSegSize=128,verbose=TRUE){
+dohClusterCustommedSegments <-function(X, peakList, refInd, segmentInfoMat, 
+  minSegSize=128, maxShift=100, acceptLostPeak=TRUE, verbose=TRUE){
   if (!is.matrix(segmentInfoMat)) {
     cat("ERROR! segmentInfoMat must be in a matrix format.")
     return(NULL)

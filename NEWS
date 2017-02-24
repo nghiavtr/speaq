@@ -1,9 +1,15 @@
+### 25/02/2017
+# Changes in Version: 1.2.3:
+- Allow to automatically detect the optimal value for maxShift in the dohCluster function. The default setting (maxShift=100) usually works well for NMR spectra. However, for other types of spectra such as chromatograms, this value might be too large. In this new version, when the value of maxShift is set by NULL (maxShift=NULL), CluPA will be implemented with different maxShift values from 2^1 to 2^trunc(log2(ncol(X)/2)). The optimal maxShift value is the one with the highest median Pearson correlation coefficent between samples. A plot of correlation across the maxShift values also reported if the verbose=TRUE is applied.
+- If the input spectra are very low abundant (for example: chromatograms), do scaling data before Fast Fourier Transformation (FFT) cross-correlation in function findShiftStepFFT().
+- Fix small bugs of detectSpecPeaks() when errors happen in function peakDetectionCWT() of MassSpecWavelet package.
+
 ### 15/11/2016
 # Changes in Version: 1.2.2:
 - Fix the issue of "if (condition) return;" might happen in function dohClusterCustommedSegments(). I acknowledge Duncan Murdoch <murdoch.duncan@gmail.com> for the alert.
 
 ### 24/02/2015
 # Changes in Version: 1.2.1:
-- Replaced R version depends to R (>= 3.1.0) in order to remove the error of using anyNA().
-- Removed the period mark in the end of the package title.
-- Converted the title field to title case
+- Replace R version depends to R (>= 3.1.0) in order to remove the error of using anyNA().
+- Remove the period mark in the end of the package title.
+- Convert the title field to title case.

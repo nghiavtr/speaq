@@ -1,26 +1,14 @@
-### R code from vignette source 'speaq.Rnw'
-### Encoding: ASCII
-
-###################################################
-### code chunk number 1: Read_data_input
-###################################################
+## ----Read_data_input,fig.keep='none', tidy=FALSE, message=F, warning=F----
 library(speaq)
-
-#Generate a simulated NMR data set for the experiment
+#Generate a simulated NMR data set for this experiment
 res=makeSimulatedData();
 X=res$data;
 groupLabel=res$label;
 
-
-###################################################
-### code chunk number 2: Unaligned_spectral_plots
-###################################################
+## ----Unaligned_spectral_plots--------------------------------------------
 drawSpec(X);
 
-
-###################################################
-### code chunk number 3: Peak_detection
-###################################################
+## ----Peak_detection------------------------------------------------------
 cat("\n detect peaks....");
 startTime <- proc.time();
 peakList <- detectSpecPeaks(X,
@@ -34,16 +22,13 @@ peakList <- detectSpecPeaks(X,
 endTime <- proc.time();
 cat("Peak detection time:",(endTime[3]-startTime[3])/60," minutes");
 
-
-###################################################
-### code chunk number 4: Reference_finding
-###################################################
+## ----Reference_finding---------------------------------------------------
 
 cat("\n Find the spectrum reference...")
 resFindRef<- findRef(peakList);
 refInd <- resFindRef$refInd;
 
-cat("\n Order of spectrum for reference  \n");
+#The ranks of spectra
 for (i in 1:length(resFindRef$orderSpec))
 {
     cat(paste(i, ":",resFindRef$orderSpec[i],sep=""), " ");
@@ -53,10 +38,7 @@ for (i in 1:length(resFindRef$orderSpec))
 cat("\n The reference is: ", refInd);
 
 
-
-###################################################
-### code chunk number 5: Spectral_alignment
-###################################################
+## ----Spectral_alignment--------------------------------------------------
 # Set maxShift
 maxShift = 50;
 
@@ -67,10 +49,15 @@ Y <- dohCluster(X,
                 acceptLostPeak = TRUE, verbose=FALSE);
 
 
+## ----Spectral_alignment_optimal_maxShift,fig.align='center'--------------
+Y <- dohCluster(X,
+                peakList = peakList,
+                refInd = refInd,
+                maxShift  = NULL,
+                acceptLostPeak = TRUE, verbose=TRUE);
 
-###################################################
-### code chunk number 6: Spectral_segment_alignment
-###################################################
+
+## ----Spectral_segment_alignment------------------------------------------
 segmentInfoMat=matrix(data=c(100,200,0,0,0,
                       450,680,1,0,50),nrow=2,ncol=5,byrow=TRUE
                       )
@@ -80,39 +67,25 @@ segmentInfoMat
 Yc <- dohClusterCustommedSegments(X,
                                  peakList = peakList,
                                  refInd = refInd,
-                                 maxShift  = maxShift,
-                                 acceptLostPeak = TRUE,
                                  segmentInfoMat = segmentInfoMat,
                                  minSegSize = 128,
                                  verbose=FALSE)
                                  
 
-
-###################################################
-### code chunk number 7: Aligned_spectral_plots
-###################################################
+## ----Aligned_spectral_plots----------------------------------------------
 drawSpec(Y);
 
-
-###################################################
-### code chunk number 8: Aligned_spectral_plots_limited_height
-###################################################
+## ----Aligned_spectral_plots_limited_height-------------------------------
 drawSpec(Y,
         startP=450,
         endP=680,
         highBound = 5e+5,
         lowBound = -100);
 
-
-###################################################
-### code chunk number 9: Aligned_spectral_plots_customized
-###################################################
+## ----Aligned_spectral_plots_customized-----------------------------------
 drawSpec(Yc);
 
-
-###################################################
-### code chunk number 10: Quantitative_analysis
-###################################################
+## ----Quantitative_analysisE----------------------------------------------
 N = 100;
 alpha = 0.05;
 
@@ -129,16 +102,9 @@ for (i in 1 : length(perc)){
     perc[i] = quantile(H0[,i],1-alpha_corr, type = 3);
 }
 
-
-###################################################
-### code chunk number 11: drawBW_1
-###################################################
+## ----drawBW_1------------------------------------------------------------
 drawBW(BW, perc,Y, groupLabel = groupLabel)
 
-
-###################################################
-### code chunk number 12: drawBW_2
-###################################################
+## ----drawBW_2------------------------------------------------------------
 drawBW(BW, perc, Y ,startP=450, endP=680, groupLabel = groupLabel)
-
 

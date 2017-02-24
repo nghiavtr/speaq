@@ -12,8 +12,8 @@ We introduce a novel suite of informatics tools for the quantitative analysis of
 \tabular{ll}{
 Package: \tab speaq\cr
 Type: \tab Package\cr
-Version: \tab 1.2.2\cr
-Date: \tab 2016-11-15\cr
+Version: \tab 1.2.3\cr
+Date: \tab 2017-02-25\cr
 License: \tab Apache License 2.0\cr
 LazyLoad: \tab yes\cr
 }
@@ -24,13 +24,9 @@ Trung Nghia Vu, Kris Laukens and Dirk Valkenborg
 Maintainer: Trung Nghia Vu <nghiavtr@gmail.com>
 
 }
-\examples{ 
-#load testing data	
-res=makeSimulatedData();
-X=res$data;
-groupLabel=res$label;
-
-# read manual to see how to run detectSpecPeaks, findRef, dohCluster, etc 
+\examples{
+# See the user guide of speaq via vignette documents
+vignette("speaq")
 
 }
 

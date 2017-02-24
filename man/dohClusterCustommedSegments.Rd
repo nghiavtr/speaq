@@ -13,10 +13,10 @@ to align spectra using CluPA.
 dohClusterCustommedSegments(X,
                             peakList,
                             refInd,
-                            maxShift,
-                            acceptLostPeak = TRUE,
                             segmentInfoMat,
                             minSegSize = 128,
+                            maxShift = 100,
+                            acceptLostPeak = TRUE,                            
                             verbose=TRUE)
 }
  
@@ -30,18 +30,17 @@ The peak lists of the spectra.
   \item{refInd}{
 The index of the reference spectrum.
 }
+  \item{segmentInfoMat}{
+The matrix containing the additional information for segments from the users. This parameter must be a matrix.
+}
+  \item{minSegSize}{
+The minimum size of the segments which could be considered for alignment.
+}
   \item{maxShift}{
 The maximum number of points for a shift step.
 }
   \item{acceptLostPeak}{
 This is an option for users, TRUE is the default value. If the users believe that all the peaks in the peak list are true positive, change it to FALSE.
-}
-  \item{segmentInfoMat}{
-The matrix containing the additional information for segments from the users. This parameter must be a matrix.
-
-}
-  \item{minSegSize}{
-The minimum size of the segments which could be considered for alignment.
 }
   \item{verbose}{
 A boolean value to allow print out process information.
