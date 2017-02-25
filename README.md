@@ -1,7 +1,7 @@
 speaq
 =====
 ### Latest release
-[Version 1.2.3](https://github.com/nghiavtr/speaq/releases/download/v1.2.2/speaq_1.2.3.tar.gz)
+[Version 1.2.3](https://github.com/nghiavtr/speaq/releases/download/v1.2.3/speaq_1.2.3.tar.gz)
 
 What's new in version 1.2.3
 - Allow to automatically detect the optimal value for maxShift in function dohCluster(). The default setting (maxShift=100) usually works well for NMR spectra. However, for other types of spectra such as chromatograms, this value might be too large. In this new version, when the value of maxShift is set by NULL (maxShift=NULL), CluPA will automatically learn to select the optimal value based on the median Pearson correlation coefficent between spectra. It is worth noting that this metric is significantly effected by high peaks in the spectra, so it might not be the best measure for evaluating alignment performances. However, it is fast for the purpose of detecting the suitable $maxShift$ value. A plot of correlation across the maxShift values also reported if the verbose=TRUE is applied.
