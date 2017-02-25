@@ -114,7 +114,7 @@ Y <- dohCluster(X,
 @
 
 \subsection{Automatically detect the optimal $maxShift$}
-If users are not confident when selecting a value for the $maxShift$, just set the value to $NULL$. Then, the software will automatically learn select the optimal value based on the median Pearson correlation coefficent between spectra. It is worth noting that this metric is significantly effected by high peaks in the spectra [2], so it might not be the best measure for evaluating alignment performances. However, it is fast and enough for the purpose of detecting the suitable $maxShift$ value. This mode also takes more time since CluPA implements extra alignment for few $maxShift$ values. If set $verbose=TRUE$, a plot of performances of CluPA with different values of $maxShift$ will be displayed. For example:
+If users are not confident when selecting a value for the $maxShift$, just set the value to $NULL$. Then, the software will automatically learn to select the optimal value based on the median Pearson correlation coefficent between spectra. It is worth noting that this metric is significantly effected by high peaks in the spectra [2], so it might not be the best measure for evaluating alignment performances. However, it is fast for the purpose of detecting the suitable $maxShift$ value. This mode also takes more time since CluPA implements extra alignment for few $maxShift$ values. If set $verbose=TRUE$, a plot of performances of CluPA with different values of $maxShift$ will be displayed. For example:
 <<Spectral_alignment_optimal_maxShift,fig.align='center'>>=
 Y <- dohCluster(X,
                 peakList = peakList,
