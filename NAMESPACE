@@ -3,5 +3,5 @@ importFrom(graphics, abline, contour, hist, legend, lines, par, plot,
 importFrom(stats, fft, rnorm)
 importFrom(MassSpecWavelet, peakDetectionCWT)
 importFrom("graphics", "axis")
-importFrom("stats", "cutree", "dist", "hclust", "median") 
+importFrom("stats", "cutree", "dist", "hclust", "median", "cor") 
 export(detectSpecPeaks,dohCluster,dohClusterCustommedSegments,doShift,drawSpec,findRef,returnLocalMaxima,findSegPeakList,findShiftStepFFT,hClustAlign,BWR,drawBW,createNullSampling,makeSimulatedData)
