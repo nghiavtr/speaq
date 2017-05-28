@@ -1,6 +1,8 @@
 speaq
 =====
-### Latest release
+### Verion 2.0 of speaq is on CRAN and maintained by Charlie Beirnaert at:
+https://github.com/beirnaert/speaq
+### The most updated speaq version 1.x is 
 [Version 1.2.3](https://github.com/nghiavtr/speaq/releases/download/v1.2.3/speaq_1.2.3.tar.gz)
 
 What's new in version 1.2.3
